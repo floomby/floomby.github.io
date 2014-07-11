@@ -1,0 +1,10 @@
+name: Overengineering Failure
+author: Josh Hoover
+url: https://floomby.github.io/
+description: Documenting my daily software adventures
+
+permalink: /:year/:month/:day/:title/
+paginate: 10
+pygments: true
+
+exclude: ['README.md', 'Gemfile.lock', 'Gemfile', 'Rakefile']

@@ -99,3 +99,4 @@ PLATFORMS
 DEPENDENCIES
   anemone
   github-pages
+  kramdown

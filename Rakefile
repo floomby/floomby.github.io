@@ -82,7 +82,7 @@ desc 'Deploy site to github'
 task :deploy do
   # TODO run checks here
   sh "git push origin master"
-  File.open("_last_deploy.txt", 'w') { |f| f.write(Time.new) }
+  File.open("_last_deploy", 'w') { |f| f.write(Time.new) }
 end
 
 
@@ -120,7 +120,7 @@ task :create_post, [:date, :title, :category, :content] do |t, args|
     yaml_cat = nil
   else
     post_dir = $post_dir
-    yaml_cat = "category: #{category}\n"
+    yaml_cat = "external-url: #{category}\n"
   end
 
   def slugify (title)
@@ -181,7 +181,7 @@ end
 
 def list_file_changed
   content = "Files changed since last deploy:\n"
-  IO.popen('find * -newer _last_deploy.txt -type f') do |io| 
+  IO.popen('find * -newer _last_deploy -type f') do |io| 
     while (line = io.gets) do
       filename = line.chomp
       if user_visible(filename) then

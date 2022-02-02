@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Zero K Replay IPFS Explorer</title>
+        <script>
+
+function htmlgen(entry) {
+    return `
+    <h4>${entry.battleid}</h4>
+    <a href="http://zero-k.info/Battles/Details/${entry.battleid}">Veiw on site</a><br/>
+    Ipfs hash: <a href="https://cloudflare-ipfs.com/ipfs/${entry.ipfshash}">${entry.ipfshash}</a><br/>
+    <a href="https://explore.ipld.io/#/explore/${entry.ipfshash}">Ipfs hash information</a><br/>
+    Veiw blockchain transaction: <a href="https://explorer.testnet.harmony.one/tx/${entry.txid}">${entry.txid}<a><br/>
+    <br/>
+`
+}
+
+function go() {
+    fetch("https://us-east-1.aws.data.mongodb-api.com/app/zkreplayipfs-mofcp/endpoint/battles").then(response => { response.text().then(data => {
+        const ret = JSON.parse(data);
+        console.dir(ret);
+        const elem = document.getElementById("content");
+        ret.forEach(entry => {
+            elem.innerHTML += htmlgen(entry);
+        });
+    })}).catch(error => {
+        console.log(`Error accessing mongo rest api: ${error}`);
+    });
+}
+        </script>
+    </head>
+    <body onload='go()'>
+        <div id='content'>
+    </body>
+</html>

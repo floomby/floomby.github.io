@@ -1,35 +1,40 @@
 <!doctype html>
 <html>
-    <head>
-        <title>Zero K Replay IPFS Explorer</title>
-        <script>
-
-function htmlgen(entry) {
-    return `
-    <h4>${entry.battleid}</h4>
-    <a href="http://zero-k.info/Battles/Detail/${entry.battleid}">View on site</a><br/>
-    Ipfs hash: <a href="https://cloudflare-ipfs.com/ipfs/${entry.ipfshash}">${entry.ipfshash}</a><br/>
-    <a href="https://explore.ipld.io/#/explore/${entry.ipfshash}">Ipfs hash information</a><br/>
-    Veiw blockchain transaction: <a href="https://explorer.testnet.harmony.one/tx/${entry.txid}">${entry.txid}<a><br/>
-    <br/>
-`
-}
-
-function go() {
-    fetch("https://us-east-1.aws.data.mongodb-api.com/app/zkreplayipfs-mofcp/endpoint/battles").then(response => { response.text().then(data => {
-        const ret = JSON.parse(data);
-        console.dir(ret);
-        const elem = document.getElementById("content");
-        ret.forEach(entry => {
-            elem.innerHTML += htmlgen(entry);
-        });
-    })}).catch(error => {
-        console.log(`Error accessing mongo rest api: ${error}`);
-    });
-}
-        </script>
-    </head>
-    <body onload='go()'>
-        <div id='content'>
-    </body>
+  <head>
+    <meta charset='UTF-8' />
+    <title>Token</title>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet">
+    <style>
+      body {
+        margin: 0;
+        font-family: Helvetica, Arial, sans-serif;
+      }
+      #map {
+        width: 100vw;
+        height: 100vh;
+      }
+      .control-panel {
+        position: absolute;
+        top: 0;
+        right: 0;
+        max-width: 320px;
+        background: #fff;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        padding: 12px 24px;
+        margin: 20px;
+        font-size: 13px;
+        line-height: 2;
+        color: #6b6b76;
+        text-transform: uppercase;
+        outline: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src='app.js'></script>
+  </body>
+  <script type="text/javascript">
+    App.renderToDom(document.getElementById('root'));
+  </script>
 </html>
